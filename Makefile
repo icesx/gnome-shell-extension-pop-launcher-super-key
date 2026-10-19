@@ -1,0 +1,51 @@
+# Basic Makefile
+
+# Retrieve the UUID from ``metadata.json``
+UUID = $(shell grep -E '^[ ]*"uuid":' ./metadata.json | sed 's@^[ ]*"uuid":[ ]*"\(.\+\)",[ ]*@\1@')
+
+ifeq ($(XDG_DATA_HOME),)
+XDG_DATA_HOME = $(HOME)/.local/share
+endif
+
+ifeq ($(strip $(DESTDIR)),)
+INSTALLBASE = $(XDG_DATA_HOME)/gnome-shell/extensions
+else
+INSTALLBASE = $(DESTDIR)/usr/share/gnome-shell/extensions
+endif
+INSTALLNAME = $(UUID)
+
+SRC = extension.js \
+      stylesheet.css \
+      metadata.json \
+      schemas/gschemas.compiled \
+      schemas/org.gnome.shell.extensions.pop-launcher-super-key-icesx.gschema.xml \
+
+$(info UUID is "$(UUID)")
+
+.PHONY: all clean install zip-file
+
+all: $(SRC)
+	rm -rf build
+	for i in $^ ; do \
+		mkdir -p build/$$(dirname $$i) ; \
+		cp $$i build/$$i ; \
+	done
+
+schemas/gschemas.compiled: schemas/*.gschema.xml
+	glib-compile-schemas schemas
+
+clean:
+	rm -rf build
+
+install: all
+	rm -rf $(INSTALLBASE)/$(INSTALLNAME)
+	mkdir -p $(INSTALLBASE)/$(INSTALLNAME)
+	cp -r build/* $(INSTALLBASE)/$(INSTALLNAME)/
+
+zip-file: all
+	rm -f "$(UUID)$(VSTRING).zip"
+	cd build && zip -qr "../$(UUID)$(VSTRING).zip" \
+		extension.js \
+		stylesheet.css \
+		metadata.json \
+		schemas/org.gnome.shell.extensions.pop-launcher-super-key-icesx.gschema.xml

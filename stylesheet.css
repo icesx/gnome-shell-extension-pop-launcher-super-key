@@ -1,0 +1,63 @@
+.pop-launcher-super-key-dialog {
+  background-color: rgba(32, 32, 32, 0.97);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.50);
+}
+
+.pop-launcher-super-key-entry {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  font-size: 17px;
+  caret-color: #ffffff;
+  selected-color: #ffffff;
+}
+
+.pop-launcher-super-key-entry:focus {
+  border-color: #5294e2;
+}
+
+.pop-launcher-super-key-scroll {
+  max-height: 360px;
+}
+
+.pop-launcher-super-key-list {
+  spacing: 4px;
+}
+
+.pop-launcher-super-key-result {
+  padding: 8px 10px;
+  border-radius: 8px;
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.pop-launcher-super-key-result:hover,
+.pop-launcher-super-key-result.selected {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.pop-launcher-super-key-result-content {
+  spacing: 12px;
+}
+
+.pop-launcher-super-key-result-name {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.pop-launcher-super-key-result-description {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+}
+
+.pop-launcher-super-key-empty {
+  padding: 18px;
+  color: rgba(255, 255, 255, 0.65);
+}

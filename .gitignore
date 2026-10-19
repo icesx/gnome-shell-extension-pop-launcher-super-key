@@ -1,0 +1,7 @@
+/build/
+.venv/
+/venv/
+__pycache__/
+*.py[cod]
+schemas/gschemas.compiled
+.DS_Store
