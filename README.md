@@ -8,10 +8,7 @@ opened with the **Super** key.
 Repository:
 <https://github.com/icesx/gnome-shell-extension-pop-launcher-super-key>
 
-![Pop Launcher Super-Key](pop-launcher-super-key.png)
-
-*The screenshot above shows the original Pop Shell-based UI. Replace it with
-a screenshot of this fork before publishing on extensions.gnome.org.*
+![Pop Launcher Super-Key](pop-launcher-super-key.jpg)
 
 ## About this fork
 
