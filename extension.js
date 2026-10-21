@@ -38,6 +38,7 @@ class AppLauncher {
         this._buttons = [];
         this._selectedIndex = -1;
         this._activateId = null;
+        this._hoverGuardPosition = null;
 
         this._dialog = new ModalDialog({
             styleClass: DIALOG_STYLE,
@@ -163,6 +164,7 @@ class AppLauncher {
         this._apps = [];
         this._results = [];
         this._buttons = [];
+        this._hoverGuardPosition = null;
     }
 
     _reloadApps() {
@@ -206,6 +208,12 @@ class AppLauncher {
     _refreshResults() {
         if (!this._list)
             return;
+
+        // A newly created row can emit hover while the pointer is stationary.
+        // Keep the initial keyboard selection on the first result until the
+        // user actually moves the pointer.
+        const [pointerX, pointerY] = global.get_pointer();
+        this._hoverGuardPosition = [pointerX, pointerY];
 
         this._list.destroy_all_children();
         this._buttons = [];
@@ -333,8 +341,17 @@ class AppLauncher {
 
         button.connect('clicked', () => this._activateAtIndex(index));
         button.connect('notify::hover', () => {
-            if (button.hover)
-                this._select(index);
+            if (!button.hover)
+                return;
+
+            const [pointerX, pointerY] = global.get_pointer();
+            if (this._hoverGuardPosition &&
+                pointerX === this._hoverGuardPosition[0] &&
+                pointerY === this._hoverGuardPosition[1])
+                return;
+
+            this._hoverGuardPosition = null;
+            this._select(index);
         });
 
         return button;
